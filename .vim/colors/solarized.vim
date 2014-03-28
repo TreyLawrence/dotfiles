@@ -1,0 +1,1 @@
+/Users/treylawrence/Documents/solarized/vim-colors-solarized/colors/solarized.vim
