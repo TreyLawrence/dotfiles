@@ -10,18 +10,36 @@ export PATH="$PATH:/Users/treylawrence/Documents/arcanist/arcanist/bin:${GOROOT/
 export EDITOR="mvim -v"
 export VISUAL="mvim -v"
 
+shopt -s histappend
+export HISTSIZE=100000
+export HISTFILESIZE=100000
+export HISTCONTROL=ignoredups:erasedups
+export PROMPT_COMMAND="history -a;history -c;history -r;$PROMPT_COMMAND"
+
+export OPSCODE_USERNAME=treylawrence
+
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
   . $(brew --prefix)/etc/bash_completion
 fi
 
 eval "$(hub alias -s)"
 
-alias ll="ls -alFG"
+alias ll="ls -alhFG"
 alias fucking="sudo"
+alias ip="ifconfig | grep 'inet ' | grep -v 127.0.0.1 | cut -d\  -f2"
 alias src="source ~/.bash_profile"
 alias profile="vim ~/.bash_profile"
-alias grep="grep --color=auto"
+alias vimrc="vim ~/.vimrc"
+alias grep="grep --color=auto -nIs"
+alias ps="ps axu"
+alias hist='history  | grep'
 alias vim="mvim -v"
+alias omgwtf="killall {vfe,sfe,echub,fswatch}{,_test}"
+alias startpostgres='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
+alias tunnel_jenkins='ssh -N -T -i ~/.ssh/jellojenkins.pem -L 5900:localhost:5900 ubuntu@jenkins.jellolabs.com &'
+alias vnc_jenkins='/Applications/Chicken.app/Contents/MacOS/Chicken localhost:5900'
+alias branded="goose -path db/branded"
+alias echub="goose -path db/echub"
 
 alias gcm="git commit -m"
 alias gca="git commit --amend"
@@ -29,13 +47,23 @@ alias gco="git checkout"
 alias ga="git add"
 alias glol="git log --all --color --graph --pretty=format:'%Cred%h%Creset%x09%C(yellow)%d%Creset %s %C(cyan)(%cr) %C(blue)[%an]%Creset' --abbrev-commit"
 alias gb="git branch"
-alias gd="git diff"
+alias gd="git diff -w"
 alias gf="git fetch -p && git fetch -t"
 alias gr="git rebase"
 alias gbr="git browse"
 alias gcp="git cherry-pick"
 
 . "$HOME/.dotfiles/.alias_completion.sh"
+
+function tmparc() {
+    GOPATH_bak=$GOPATH
+    echo "Setting to $GOPATH from $GOPATH_bak"
+    export GOPATH="/tmp/branded/go:$GOPATH"
+    echo "rsyncing ~/Documents/branded to /tmp/"
+    rsync -a --delete ~/Documents/branded /tmp/
+    pushd /tmp/branded
+    arc "$@" || arc "$@" && popd; export GOPATH=$GOPATH_bak; echo "Reset go path"
+}
 
 # Processes your git status output, exporting bash variables
 # for the filepaths of each modified file.
