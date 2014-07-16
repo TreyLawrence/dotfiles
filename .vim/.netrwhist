@@ -1,9 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
-let g:netrw_dirhist_1='/Users/treylawrence/.heroku/client/vendor'
-let g:netrw_dirhist_2='/Users/treylawrence/.heroku/client'
-let g:netrw_dirhist_3='/Users/treylawrence/.heroku'
-let g:netrw_dirhist_4='/Users/treylawrence'
-let g:netrw_dirhist_5='/Users/treylawrence/Documents/branded/go/src/jello/integrations/echub/test'
-let g:netrw_dirhist_6='/Users/treylawrence/.dotfiles/.vim/bundle'
-let g:netrw_dirhist_7='/Users/treylawrence/.dotfiles/.vim/bundle/vim-go'
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/Users/treylawrence/Documents/branded/go'
+let g:netrw_dirhist_2='/Users/treylawrence/Documents/branded/go/src'
+let g:netrw_dirhist_3='/Users/treylawrence/Documents/branded/go/src/jello'
+let g:netrw_dirhist_4='/Users/treylawrence/Documents/branded/go/src/jello/vfe'
+let g:netrw_dirhist_5='/Users/treylawrence/Documents/branded'
