@@ -40,6 +40,7 @@ set shiftwidth=4
 set expandtab
 
 set number
+set relativenumber
 set colorcolumn=80
 
 set incsearch
@@ -50,6 +51,7 @@ set listchars=tab:·\ ,trail:·
 
 let mapleader=" "
 nnoremap <Leader>q :q<CR>
+nnoremap <Leader>x :x<CR>
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>e :e
 nnoremap <Leader>p :CtrlP<CR>
@@ -64,6 +66,7 @@ nnoremap <leader>gc :Gcommit<cr>
 nnoremap <leader>ga :Gwrite<cr>
 nnoremap <leader>gl :Glog<cr>
 nnoremap <leader>gd :Gdiff<cr>
+nnoremap <leader>= <C-w><C-=>
 
 nnoremap <C-l> <C-w>l
 nnoremap <C-h> <C-w>h
@@ -93,5 +96,7 @@ au FileType go nmap <Leader>vd <Plug>(go-def-vertical)
 nnoremap <Leader>qj ^yw$a `json:"phcrsA"`j
 
 " Ctrl-P
-let g:ctrlp_custom_ignore = 'js\/vendor\/dist'
-
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](.git|.arc|dist|components|node_modules|ios)$',
+  \ }
