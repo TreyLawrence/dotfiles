@@ -3,7 +3,7 @@
 . "$HOME/Documents/arcanist/arcanist/resources/shell/bash-completion"
 . "$HOME/.dotfiles/secrets"
 
-export GOROOT="/usr/local/Cellar/go/1.2/libexec"
+export GOROOT="/usr/local/Cellar/go/1.3/libexec"
 export GOPATH="$HOME/go:$HOME/Documents/branded/go"
 export PATH="usr/local/bin:/usr/local/sbin:~/bin:$PATH"
 export PATH="$PATH:/Users/treylawrence/Documents/arcanist/arcanist/bin:${GOROOT//://bin:}:${GOPATH//://bin:}/bin"
