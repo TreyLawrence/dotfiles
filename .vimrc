@@ -4,11 +4,8 @@ filetype off                  " required!
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-
 " let Vundle manage Vundle
-Plugin 'gmarik/vundle'
-
-" required!
+Plugin 'gmarik/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-abolish'
@@ -16,13 +13,13 @@ Plugin 'Lokaltog/vim-easymotion'
 Plugin 'kien/ctrlp.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'scrooloose/syntastic'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'mustache/vim-mustache-handlebars'
 Plugin 'wting/rust.vim'
 Plugin 'dag/vim2hs'
 Plugin 'fatih/vim-go'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'Raimondi/YAIFA'
+Plugin 'scrooloose/nerdtree'
+Plugin 'maksimr/vim-jsbeautify'
 call vundle#end() 
 filetype plugin indent on    " required!
 
@@ -40,7 +37,6 @@ set shiftwidth=4
 set expandtab
 
 set number
-set relativenumber
 set colorcolumn=80
 
 set incsearch
@@ -62,6 +58,7 @@ nnoremap <Leader>m :lnext<CR>
 " Vim!
 nnoremap <Leader>gg :Ggrep -i ""<left>
 nnoremap <leader>gs :Gstatus<cr>
+nnoremap <leader>gb :Gblame<cr>
 nnoremap <leader>gc :Gcommit<cr>
 nnoremap <leader>ga :Gwrite<cr>
 nnoremap <leader>gl :Glog<cr>
@@ -78,6 +75,8 @@ inoremap <C-k> <C-p>
 
 autocmd QuickFixCmdPost *grep* cwindow
 
+map <C-n> :NERDTreeToggle<CR>
+
 " Syntastic Stuff
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute "]
 let g:pyflakes_use_quickfix = 0
@@ -92,6 +91,8 @@ au FileType go nmap <Leader>i <Plug>(go-import)
 au FileType go nmap <Leader>d <Plug>(go-def)
 au FileType go nmap <Leader>sd <Plug>(go-def-split)
 au FileType go nmap <Leader>vd <Plug>(go-def-vertical)
+
+let g:go_oracle_scope_file="jello/integrations/echub jello/branded_cron jello/sfe jello/vfe jello/integrations/osu"
 
 nnoremap <Leader>qj ^yw$a `json:"phcrsA"`j
 
