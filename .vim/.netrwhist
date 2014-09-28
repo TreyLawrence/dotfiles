@@ -1,9 +1,3 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =7
-let g:netrw_dirhist_1='/Users/treylawrence/Documents/branded/js/vendor/app/scripts/services'
-let g:netrw_dirhist_2='/Users/treylawrence/Documents/branded/js/vendor/app/scripts'
-let g:netrw_dirhist_3='/Users/treylawrence/Documents/branded/js/vendor/app'
-let g:netrw_dirhist_4='/Users/treylawrence/Documents/branded/js/vendor/app/styles'
-let g:netrw_dirhist_5='/Users/treylawrence/Documents/branded/js/vendor/app'
-let g:netrw_dirhist_6='/Users/treylawrence/Documents/branded/js/vendor/app/views'
-let g:netrw_dirhist_7='/Users/treylawrence/Documents/branded'
+let g:netrw_dirhist_cnt =1
+let g:netrw_dirhist_1='/Users/treylawrence/.dotfiles/.vim'

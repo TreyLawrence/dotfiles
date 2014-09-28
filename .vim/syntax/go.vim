@@ -1,1 +1,1 @@
-/usr/local/Cellar/go/1.2/libexec/misc/vim/go.vim
+/usr/local/Cellar/go/1.2/libexec/misc/vim/syntax/go.vim

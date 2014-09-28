@@ -1,6 +1,7 @@
 set shell=/bin/bash
 set nocompatible              " be iMproved
 filetype off                  " required!
+set write
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -13,7 +14,6 @@ Plugin 'Lokaltog/vim-easymotion'
 Plugin 'kien/ctrlp.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'scrooloose/syntastic'
-Plugin 'wting/rust.vim'
 Plugin 'dag/vim2hs'
 Plugin 'fatih/vim-go'
 Plugin 'Valloric/YouCompleteMe'
