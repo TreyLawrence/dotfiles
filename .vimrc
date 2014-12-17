@@ -20,6 +20,8 @@ Plugin 'Valloric/YouCompleteMe'
 Plugin 'Raimondi/YAIFA'
 Plugin 'scrooloose/nerdtree'
 Plugin 'maksimr/vim-jsbeautify'
+Plugin 'JuliaLang/julia-vim'
+Plugin 'majutsushi/tagbar'
 call vundle#end() 
 filetype plugin indent on    " required!
 
@@ -27,6 +29,7 @@ set rtp+=$GOROOT/misc/vim
 
 syntax enable
 colorscheme solarized
+set background=dark
 
 let g:SuperTabDefaultCompletionType = "context"
 let g:syntastic_always_populate_loc_list=1
@@ -49,7 +52,6 @@ let mapleader=" "
 nnoremap <Leader>q :q<CR>
 nnoremap <Leader>x :x<CR>
 nnoremap <Leader>w :w<CR>
-nnoremap <Leader>e :e
 nnoremap <Leader>p :CtrlP<CR>
 nnoremap <Leader>o :CtrlPBuffer<CR>
 nnoremap <Leader>n :ll<CR>
@@ -76,6 +78,7 @@ inoremap <C-k> <C-p>
 autocmd QuickFixCmdPost *grep* cwindow
 
 map <C-n> :NERDTreeToggle<CR>
+nmap <C-t> :TagbarToggle<CR>
 
 " Syntastic Stuff
 let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute "]
@@ -87,7 +90,14 @@ let g:yaifa_indentation=0
 autocmd BufReadPost * :silent !YAIFAMagic
 
 " Go Stuff
-au FileType go nmap <Leader>i <Plug>(go-import)
+let g:go_fmt_command = "goimports"
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_snippet_engine = "neosnippet"
+au FileType go nmap <Leader>s <Plug>(go-implements)
+au FileType go nmap <Leader>i <Plug>(go-info)
+au FileType go nmap <Leader>e <Plug>(go-rename)
 au FileType go nmap <Leader>d <Plug>(go-def)
 au FileType go nmap <Leader>sd <Plug>(go-def-split)
 au FileType go nmap <Leader>vd <Plug>(go-def-vertical)

@@ -61,7 +61,7 @@ alias gdc="git diff --name-only"
 . "$HOME/.dotfiles/.alias_completion.sh"
 
 function changes() {
-  gdc "$1" | xargs vim
+  gdc "$1" | xargs mvim
 }
 
 function echub() {
