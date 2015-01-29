@@ -22,6 +22,8 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'maksimr/vim-jsbeautify'
 Plugin 'JuliaLang/julia-vim'
 Plugin 'majutsushi/tagbar'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
 call vundle#end() 
 filetype plugin indent on    " required!
 
@@ -33,6 +35,9 @@ set background=dark
 
 let g:SuperTabDefaultCompletionType = "context"
 let g:syntastic_always_populate_loc_list=1
+
+let g:jsx_ext_required = 0
+let javaScript_fold=1
 
 set smartindent
 set tabstop=4
