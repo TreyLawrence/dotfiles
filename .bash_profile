@@ -1,11 +1,9 @@
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-
-. "$HOME/Documents/arcanist/arcanist/resources/shell/bash-completion"
 . "$HOME/.dotfiles/secrets"
+. "$HOME/.dotfiles/work_specific"
 
 export PYTHONPATH="$(brew --prefix)/lib/python2.7/site-packages"
-export GOROOT="/usr/local/Cellar/go/1.3/libexec"
-export GOPATH="$HOME/go:$HOME/Documents/branded/go"
+export GOPATH="$HOME/go:$HOME/Documents/branded/go:$HOME/Library/Android/sdk"
+export JULIA_LOAD_PATH="$HOME/Documents/branded/exp/analytics"
 export PATH="/Users/treylawrence/anaconda/bin:$PATH"
 export PATH="/usr/local/bin:$PATH"
 export PATH="$PATH:/Users/treylawrence/Documents/arcanist/arcanist/bin:${GOROOT//://bin:}:${GOPATH//://bin:}/bin"
@@ -18,15 +16,15 @@ export HISTFILESIZE=100000
 export HISTCONTROL=ignoredups:erasedups
 export PROMPT_COMMAND="history -a;history -c;history -r;$PROMPT_COMMAND"
 
-export OPSCODE_USERNAME=treylawrence
-
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
   . $(brew --prefix)/etc/bash_completion
 fi
 
-eval "$(hub alias -s)"
+export NVM_DIR=~/.nvm
+source $(brew --prefix nvm)/nvm.sh
 
-alias redshift="psql -h spring.cminumodijif.us-east-1.redshift.amazonaws.com -p 5439 -U springredshift -w"
+export RBENV_ROOT=/usr/local/var/rbenv
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 alias ll="ls -alhFG"
 alias fucking="sudo"
@@ -38,12 +36,6 @@ alias grep="grep --color=auto -nIs"
 alias ps="ps axu"
 alias hist='history  | grep'
 alias vim="mvim -m"
-
-alias omgwtf="killall {vfe,sfe,echub,fswatch}{,_test}"
-alias yolo="git fetch && git rebase origin/master && arc land"
-alias startpostgres='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
-alias tunnel_jenkins='ssh -N -T -i ~/.ssh/jellojenkins.pem -L 5900:localhost:5900 ubuntu@jenkins.jellolabs.com &'
-alias vnc_jenkins='/Applications/Chicken.app/Contents/MacOS/Chicken localhost:5900'
 
 alias gcm="git commit -m"
 alias gca="git commit --amend"
@@ -62,48 +54,6 @@ alias gdc="git diff --name-only"
 
 function changes() {
   gdc "$1" | xargs mvim
-}
-
-function echub() {
-  if [ "$1" = "create" ]; then
-    goose -path db/echub create $2 $3
-  elif [ "$1" = "local" ]; then
-    psql echub_dev
-  elif [ "$1" = "test" ]; then
-    psql echub_test
-  elif [ "$1" = "dev" ]; then
-    ~/Documents/branded/tools/psql_remote_db.sh service dev-echub
-  elif [ "$1" = "demo" ]; then
-    ~/Documents/branded/tools/psql_remote_db.sh service demo-echub
-  elif [ "$1" = "4real" ]; then
-    ~/Documents/branded/tools/psql_remote_db.sh service 4real-echub
-  fi
-}
-  
-function branded() {
-  if [ "$1" = "create" ]; then
-    goose -path db/branded create $2 $3 
-  elif [ "$1" = "local" ]; then
-    psql branded_dev
-  elif [ "$1" = "test" ]; then
-    psql branded_test
-  elif [ "$1" = "dev" ]; then
-    ~/Documents/branded/tools/psql_remote_db.sh service dev-vfe
-  elif [ "$1" = "demo" ]; then
-    ~/Documents/branded/tools/psql_remote_db.sh service demo-vfe
-  elif [ "$1" = "4real" ]; then
-    ~/Documents/branded/tools/psql_remote_db.sh service 4real-vfe
-  fi
-}
-
-function tmparc() {
-   GOPATH_bak=$GOPATH
-   echo "Setting to $GOPATH from $GOPATH_bak"
-   export GOPATH="/tmp/branded/go:$GOPATH"
-   echo "rsyncing ~/Documents/branded to /tmp/"
-   rsync -a --delete ~/Documents/branded /tmp/
-   pushd /tmp/branded
-   arc "$@" || arc "$@" && popd; export GOPATH=$GOPATH_bak; echo "Reset go path"
 }
 
 # Processes your git status output, exporting bash variables

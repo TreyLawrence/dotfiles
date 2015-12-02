@@ -24,6 +24,7 @@ Plugin 'JuliaLang/julia-vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
+Plugin 'd11wtq/ctrlp_bdelete.vim'
 call vundle#end() 
 filetype plugin indent on    " required!
 
@@ -104,7 +105,7 @@ au FileType go nmap <Leader>s <Plug>(go-implements)
 au FileType go nmap <Leader>i <Plug>(go-info)
 au FileType go nmap <Leader>e <Plug>(go-rename)
 au FileType go nmap <Leader>d <Plug>(go-def)
-au FileType go nmap <Leader>sd <Plug>(go-def-split)
+au FileType go nmap <Leader>hd <Plug>(go-def-split)
 au FileType go nmap <Leader>vd <Plug>(go-def-vertical)
 
 let g:go_oracle_scope_file="jello/integrations/echub jello/branded_cron jello/sfe jello/vfe jello/integrations/osu"
@@ -112,6 +113,7 @@ let g:go_oracle_scope_file="jello/integrations/echub jello/branded_cron jello/sf
 nnoremap <Leader>qj ^yw$a `json:"phcrsA"`j
 
 " Ctrl-P
+call ctrlp_bdelete#init()
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/](.git|.arc|dist|components|node_modules|ios)$',
