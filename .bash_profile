@@ -9,6 +9,7 @@ export PATH="/usr/local/bin:$PATH"
 export PATH="$PATH:/Users/treylawrence/Documents/arcanist/arcanist/bin:${GOROOT//://bin:}:${GOPATH//://bin:}/bin"
 export EDITOR="mvim -v"
 export VISUAL="mvim -v"
+export PAGER=less
 
 shopt -s histappend
 export HISTSIZE=100000
@@ -19,6 +20,12 @@ export PROMPT_COMMAND="history -a;history -c;history -r;$PROMPT_COMMAND"
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
   . $(brew --prefix)/etc/bash_completion
 fi
+
+eg(){
+  MAN_KEEP_FORMATTING=1 man "$@" 2>/dev/null \
+    | gsed --quiet --expression='/^E\(\x08.\)X\(\x08.\)\?A\(\x08.\)\?M\(\x08.\)\?P\(\x08.\)\?L\(\x08.\)\?E/{:a;p;n;/^[^ ]/q;ba}' \
+    | ${MANPAGER:-${PAGER:-pager -s}}
+}
 
 export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
