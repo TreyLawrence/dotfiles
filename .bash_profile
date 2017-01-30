@@ -1,8 +1,8 @@
 . "$HOME/.dotfiles/secrets"
 . "$HOME/.dotfiles/work_specific"
 
-export PYTHONPATH="$(brew --prefix)/lib/python2.7/site-packages"
-export GOPATH="$HOME/go:$HOME/Documents/branded/go:$HOME/Library/Android/sdk"
+#export PYTHONPATH="$(brew --prefix)/lib/python2.7/site-packages"
+export GOPATH="$HOME/work/go"
 export JULIA_LOAD_PATH="$HOME/Documents/branded/exp/analytics"
 export PATH="/Users/treylawrence/anaconda/bin:$PATH"
 export PATH="/usr/local/bin:$PATH"
@@ -17,6 +17,10 @@ export HISTFILESIZE=100000
 export HISTCONTROL=ignoredups:erasedups
 export PROMPT_COMMAND="history -a;history -c;history -r;$PROMPT_COMMAND"
 
+# Android
+export ANDROID_HOME=/Users/iheartcheese/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
   . $(brew --prefix)/etc/bash_completion
 fi
@@ -26,9 +30,6 @@ eg(){
     | gsed --quiet --expression='/^E\(\x08.\)X\(\x08.\)\?A\(\x08.\)\?M\(\x08.\)\?P\(\x08.\)\?L\(\x08.\)\?E/{:a;p;n;/^[^ ]/q;ba}' \
     | ${MANPAGER:-${PAGER:-pager -s}}
 }
-
-export NVM_DIR=~/.nvm
-source $(brew --prefix nvm)/nvm.sh
 
 export RBENV_ROOT=/usr/local/var/rbenv
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
@@ -53,7 +54,7 @@ alias gb="git branch"
 alias gd="git diff -w"
 alias gf="git fetch -p && git fetch -t"
 alias gr="git rebase"
-alias gbr="git browse"
+alias gbr="hub browse"
 alias gcp="git cherry-pick"
 alias gdc="git diff --name-only"
 
@@ -73,11 +74,11 @@ gs() {
   max_changes=500  # Max changes before reverting to standard 'git status' (can be very slow otherwise)
   IFS=$'\n'
   # Only export variables for less than $max_changes
-  status=`git status --porcelain`
+  status=`git status -s`
   if [ `echo "$status" | wc -l` -lt $max_changes ]; then
     f=0  # Counter for the number of files
     for line in $status; do
-      file=$(echo $line | sed "s/^...//g")
+      file=$(echo $line | sed 's/.* //g')
       let f++
       files[$f]=$file         # Array for formatting the output
       export $pfix$f=$file   # Exporting variable for use.

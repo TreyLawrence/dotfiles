@@ -14,17 +14,14 @@ Plugin 'Lokaltog/vim-easymotion'
 Plugin 'kien/ctrlp.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'scrooloose/syntastic'
-Plugin 'dag/vim2hs'
 Plugin 'fatih/vim-go'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'Raimondi/YAIFA'
 Plugin 'scrooloose/nerdtree'
-Plugin 'maksimr/vim-jsbeautify'
-Plugin 'JuliaLang/julia-vim'
 Plugin 'majutsushi/tagbar'
-Plugin 'pangloss/vim-javascript'
-Plugin 'mxw/vim-jsx'
 Plugin 'd11wtq/ctrlp_bdelete.vim'
+Plugin 'tmhedberg/SimpylFold'
+Plugin 'vim-scripts/indentpython.vim'
 call vundle#end() 
 filetype plugin indent on    " required!
 
@@ -99,7 +96,10 @@ autocmd BufReadPost * :silent !YAIFAMagic
 let g:go_fmt_command = "goimports"
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
-let g:go_highlight_structs = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
 let g:go_snippet_engine = "neosnippet"
 au FileType go nmap <Leader>s <Plug>(go-implements)
 au FileType go nmap <Leader>i <Plug>(go-info)
@@ -108,13 +108,31 @@ au FileType go nmap <Leader>d <Plug>(go-def)
 au FileType go nmap <Leader>hd <Plug>(go-def-split)
 au FileType go nmap <Leader>vd <Plug>(go-def-vertical)
 
-let g:go_oracle_scope_file="jello/integrations/echub jello/branded_cron jello/sfe jello/vfe jello/integrations/osu"
+au BufNewFile,BufRead *.py
+    \ set tabstop=4
+    \ set softtabstop=4
+    \ set shiftwidth=4
+    \ set textwidth=79
+    \ set expandtab
+    \ set autoindent
+    \ set fileformat=unix
+let g:SimpylFold_docstring_preview=1
+
+au BufNewFile,BufRead *.js, *.html, *.css
+    \ set tabstop=2
+    \ set softtabstop=2
+    \ set shiftwidth=2
+
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
 nnoremap <Leader>qj ^yw$a `json:"phcrsA"`j
+
+let g:ycm_autoclose_preview_window_after_completion=1
+map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " Ctrl-P
 call ctrlp_bdelete#init()
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](.git|.arc|dist|components|node_modules|ios)$',
+  \ 'dir':  '\v[\/](.git|.arc|dist|node_modules|ios)$',
   \ }
