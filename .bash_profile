@@ -1,38 +1,31 @@
 . "$HOME/.dotfiles/secrets"
-. "$HOME/.dotfiles/work_specific"
+. "$HOME/work/spell/env/source"
 
-#export PYTHONPATH="$(brew --prefix)/lib/python2.7/site-packages"
-export GOPATH="$HOME/work/go"
-export JULIA_LOAD_PATH="$HOME/Documents/branded/exp/analytics"
-export PATH="/Users/treylawrence/anaconda/bin:$PATH"
-export PATH="/usr/local/bin:$PATH"
-export PATH="$PATH:/Users/treylawrence/Documents/arcanist/arcanist/bin:${GOROOT//://bin:}:${GOPATH//://bin:}/bin"
 export EDITOR="mvim -v"
 export VISUAL="mvim -v"
 export PAGER=less
 
 shopt -s histappend
-export HISTSIZE=100000
-export HISTFILESIZE=100000
+export HISTSIZE=
+export HISTFILESIZE=
 export HISTCONTROL=ignoredups:erasedups
 export PROMPT_COMMAND="history -a;history -c;history -r;$PROMPT_COMMAND"
 
-# Android
-export ANDROID_HOME=/Users/iheartcheese/Library/Android/sdk
-export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+# python
+export PATH=/usr/local/opt/python/libexec/bin:$PATH
 
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-  . $(brew --prefix)/etc/bash_completion
-fi
+[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/trey/Downloads/google-cloud-sdk/path.bash.inc' ]; then source '/Users/trey/Downloads/google-cloud-sdk/path.bash.inc'; fi
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/trey/Downloads/google-cloud-sdk/completion.bash.inc' ]; then source '/Users/trey/Downloads/google-cloud-sdk/completion.bash.inc'; fi
 
 eg(){
   MAN_KEEP_FORMATTING=1 man "$@" 2>/dev/null \
     | gsed --quiet --expression='/^E\(\x08.\)X\(\x08.\)\?A\(\x08.\)\?M\(\x08.\)\?P\(\x08.\)\?L\(\x08.\)\?E/{:a;p;n;/^[^ ]/q;ba}' \
     | ${MANPAGER:-${PAGER:-pager -s}}
 }
-
-export RBENV_ROOT=/usr/local/var/rbenv
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 alias ll="ls -alhFG"
 alias fucking="sudo"
@@ -57,6 +50,8 @@ alias gr="git rebase"
 alias gbr="hub browse"
 alias gcp="git cherry-pick"
 alias gdc="git diff --name-only"
+alias to-review="open https://github.com/spellrun/spell/pulls/review-requested/TreyLawrence"
+alias my-prs="open https://github.com/spellrun/spell/pulls/TreyLawrence"
 
 . "$HOME/.dotfiles/.alias_completion.sh"
 
@@ -109,7 +104,7 @@ gs() {
   unset IFS
 }
 parse_git_dirty () {
-  [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working directory clean" ]] && echo "*"
+  [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working tree clean" ]] && echo "*"
 }
 parse_git_branch () {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/*\(.*\)/\1$(parse_git_dirty)/"
